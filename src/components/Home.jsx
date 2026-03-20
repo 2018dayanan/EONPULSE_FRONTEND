@@ -2,8 +2,8 @@ import React, { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useGSAP } from '@gsap/react';
-import { 
-  Terminal, Server, Code, Zap, ArrowRight, ShieldCheck, 
+import {
+  Terminal, Server, Code, Zap, ArrowRight, ShieldCheck,
   Globe, Database, CloudLightning, Activity, Cpu, Layers, Rocket
 } from 'lucide-react';
 
@@ -83,7 +83,7 @@ const Hero = () => {
     gsap.fromTo(".widget-bar-1", { width: 0 }, { width: "85%", duration: 1.5, delay: 0.8, ease: "power2.out" });
     gsap.fromTo(".widget-bar-2", { width: 0 }, { width: "95%", duration: 1.5, delay: 1, ease: "power2.out" });
     gsap.fromTo(".widget-bar-3", { width: 0 }, { width: "65%", duration: 1.5, delay: 1.2, ease: "power2.out" });
-    
+
   }, { scope: heroRef });
 
   return (
@@ -99,7 +99,7 @@ const Hero = () => {
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-12 gap-16 w-full py-24">
-        
+
         {/* Left Content */}
         <div className="lg:col-span-7 flex flex-col justify-center">
           <div className="hero-item inline-flex items-center gap-3 px-5 py-2.5 rounded-full border border-accent/30 bg-accent/10 mb-8 backdrop-blur-md self-start shadow-[0_0_20px_rgba(0,245,255,0.15)]">
@@ -107,19 +107,19 @@ const Hero = () => {
             <span className="w-2.5 h-2.5 rounded-full bg-accent relative block"></span>
             <span className="text-xs font-black tracking-[0.2em] uppercase text-accent">Status: Reconstruction Protocol Active</span>
           </div>
-          
+
           <h1 className="hero-item text-5xl md:text-7xl lg:text-8xl font-bold mb-8 text-white leading-[1.05] tracking-tight">
-            Stabilizing <br/>Digital <br/>
+            Stabilizing <br />Digital <br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent via-indigo-400 to-accent animate-gradient relative inline-block">
               Abyssal
               <span className="absolute -bottom-2 left-0 w-full h-2 bg-accent/30 blur-md"></span>
-            </span><br/>Networks
+            </span><br />Networks
           </h1>
-          
+
           <p className="hero-item text-lg md:text-xl text-slate-400 max-w-2xl mb-12 leading-relaxed font-light">
             Engineering resilient deep-infrastructure for the modern frontier. We repair fractured data conduits and transform them into high-performance, unbreakable digital ecosystems.
           </p>
-          
+
           <div className="hero-item flex flex-col sm:flex-row items-center gap-6">
             <button className="w-full sm:w-auto px-10 py-5 bg-gradient-to-r from-accent to-cyan-500 text-primary font-black rounded-2xl text-sm uppercase tracking-widest flex items-center justify-center gap-3 transition-all hover:scale-105 hover:shadow-[0_0_30px_rgba(0,245,255,0.5)] active:scale-95 glow-pulse">
               Initiate Protocol <Terminal size={18} strokeWidth={3} />
@@ -129,12 +129,12 @@ const Hero = () => {
             </button>
           </div>
         </div>
-        
+
         {/* Right Content / Dashboard Widget */}
         <div className="widget-container hidden lg:flex justify-end items-center lg:col-span-5 relative">
           <div className="neuro-glass p-8 rounded-[2rem] w-full max-w-lg border border-accent/20 shadow-[0_50px_100px_-20px_rgba(0,0,0,0.8),0_0_30px_rgba(0,245,255,0.1)] relative overflow-hidden group">
             <div className="absolute inset-0 bg-gradient-to-br from-accent/10 to-transparent pointer-events-none"></div>
-            
+
             {/* Header of widget */}
             <div className="flex items-start justify-between mb-10 relative z-10">
               <div className="flex flex-col gap-2">
@@ -164,10 +164,10 @@ const Hero = () => {
                   </span>
                 </div>
                 <div className="w-full h-1.5 bg-white/10 rounded-full overflow-hidden">
-                  <div className="widget-bar-1 h-full bg-gradient-to-r from-cyan-600 to-accent shimmer-active"/>
+                  <div className="widget-bar-1 h-full bg-gradient-to-r from-cyan-600 to-accent shimmer-active" />
                 </div>
               </div>
-              
+
               {/* Bar 2 */}
               <div className="p-6 rounded-3xl bg-black/40 border border-white/5 hover:border-secondary/50 transition-colors backdrop-blur-md">
                 <div className="flex justify-between items-start mb-4">
@@ -182,7 +182,7 @@ const Hero = () => {
                   </span>
                 </div>
                 <div className="w-full h-1.5 bg-white/10 rounded-full overflow-hidden">
-                  <div className="widget-bar-2 h-full bg-gradient-to-r from-indigo-600 to-secondary"/>
+                  <div className="widget-bar-2 h-full bg-gradient-to-r from-indigo-600 to-secondary" />
                 </div>
               </div>
 
@@ -200,11 +200,11 @@ const Hero = () => {
                   </span>
                 </div>
                 <div className="w-full h-1.5 bg-white/10 rounded-full overflow-hidden">
-                  <div className="widget-bar-3 h-full bg-slate-400"/>
+                  <div className="widget-bar-3 h-full bg-slate-400" />
                 </div>
               </div>
             </div>
-            
+
             <div className="mt-8 relative z-10 flex items-center gap-3 bg-accent/5 p-4 rounded-2xl border border-accent/10">
               <ShieldCheck className="text-accent shrink-0" size={20} />
               <p className="text-[10px] text-slate-400 leading-relaxed font-bold uppercase tracking-wider">
@@ -256,7 +256,7 @@ const ServicesSection = () => {
   return (
     <section ref={sectionRef} className="py-40 bg-abyss relative overflow-hidden">
       <div className="absolute top-0 left-0 w-full h-40 bg-gradient-to-b from-primary to-transparent"></div>
-      
+
       <div className="max-w-7xl mx-auto px-6 relative z-10">
         <div className="max-w-3xl mb-24">
           <h2 className="service-heading text-5xl md:text-7xl font-bold text-white mb-8 tracking-tighter">
@@ -266,11 +266,11 @@ const ServicesSection = () => {
             Deep-sea digital architecture requires specialized modules, engineered for extreme conditions and peak computational performance.
           </p>
         </div>
-        
+
         <div className="services-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {services.map((service, idx) => (
-            <div 
-              key={idx} 
+            <div
+              key={idx}
               className="service-card glass p-12 rounded-[2.5rem] group border border-white/5 hover:border-accent/40 hover:shadow-[0_20px_40px_rgba(0,245,255,0.1)] transition-all bg-white/[0.01] hover:-translate-y-2 cursor-pointer"
             >
               <div className="w-20 h-20 rounded-3xl bg-gradient-to-br from-accent/10 to-transparent border border-accent/20 flex items-center justify-center mb-10 group-hover:scale-110 group-hover:bg-accent/20 transition-all duration-300 shadow-[0_0_30px_rgba(0,245,255,0.05)] text-accent">
@@ -278,7 +278,7 @@ const ServicesSection = () => {
               </div>
               <h3 className="text-3xl font-bold text-white mb-6 tracking-tight">{service.title}</h3>
               <p className="text-slate-400 text-base leading-relaxed mb-10 font-light">{service.desc}</p>
-              
+
               <div className="h-1 w-full bg-white/5 rounded-full overflow-hidden">
                 <div className={`h-full w-0 group-hover:w-full bg-gradient-to-r from-\${service.color}/50 to-\${service.color} transition-all duration-700 ease-out`}></div>
               </div>
@@ -326,11 +326,11 @@ const ImageMaskReveal = () => {
         <img src="/images/eonpulse_quantum_servers.png" alt="Eonpulse Infrastructure" className="object-cover w-full h-full opacity-60" />
         <div className="absolute inset-0 bg-gradient-to-t from-primary via-transparent to-primary"></div>
         <div className="absolute inset-0 bg-gradient-to-r from-primary/80 via-transparent to-transparent"></div>
-        
+
         <div className="absolute bottom-20 left-10 md:left-24 z-10 max-w-xl">
           <span className="text-xs font-black tracking-[0.4em] text-accent uppercase mb-4 block">Post-Integration</span>
           <h2 className="text-4xl md:text-6xl font-bold text-white mb-4 leading-tight">
-            Stabilized <br/> Ecosystem
+            Stabilized <br /> Ecosystem
           </h2>
           <p className="text-xl md:text-2xl text-slate-300 font-light leading-relaxed">
             Quantum-tier architecture providing absolute stability and zero latency.
@@ -339,35 +339,35 @@ const ImageMaskReveal = () => {
       </div>
 
       {/* Foreground Image with Mask (Before / Messy) */}
-      <div 
-        ref={maskRef} 
+      <div
+        ref={maskRef}
         className="absolute inset-0 w-full h-full z-10"
         style={{ clipPath: "inset(0 0 0 0)" }}
       >
         <img src="/images/messy_legacy_servers.png" alt="Legacy Infrastructure" className="object-cover w-full h-full opacity-60 grayscale contrast-125 saturate-50 mix-blend-luminosity" />
         <div className="absolute inset-0 bg-gradient-to-t from-primary via-red-900/10 to-primary"></div>
         <div className="absolute inset-0 bg-gradient-to-r from-primary/80 via-transparent to-transparent"></div>
-        
+
         <div ref={textRef} className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex flex-col items-center justify-center pointer-events-none mt-20">
-           <div className="w-[1px] h-16 bg-gradient-to-b from-transparent to-white/50 mb-4 animate-pulse"></div>
-           <div className="bg-black/40 backdrop-blur-md px-8 py-4 rounded-full border border-white/10 shadow-[0_0_30px_rgba(0,0,0,0.8)]">
-               <span className="text-white text-xs font-bold tracking-[0.3em] uppercase opacity-70 flex items-center gap-3">
-                 Scroll to restructure <ArrowRight size={14} className="animate-bounce-x" />
-               </span>
-           </div>
+          <div className="w-[1px] h-16 bg-gradient-to-b from-transparent to-white/50 mb-4 animate-pulse"></div>
+          <div className="bg-black/40 backdrop-blur-md px-8 py-4 rounded-full border border-white/10 shadow-[0_0_30px_rgba(0,0,0,0.8)]">
+            <span className="text-white text-xs font-bold tracking-[0.3em] uppercase opacity-70 flex items-center gap-3">
+              Scroll to restructure <ArrowRight size={14} className="animate-bounce-x" />
+            </span>
+          </div>
         </div>
 
         <div className="absolute bottom-20 left-10 md:left-24 z-20 max-w-xl">
           <span className="text-xs font-black tracking-[0.4em] text-red-500 uppercase mb-4 block">Pre-Integration</span>
           <h2 className="text-4xl md:text-6xl font-bold text-slate-300 mb-4 leading-tight drop-shadow-lg">
-            Legacy <br/> Chaos
+            Legacy <br /> Chaos
           </h2>
           <p className="text-xl md:text-2xl text-red-400 font-light leading-relaxed">
             High-latency, tangled surface-level networks. Unstable logic.
           </p>
         </div>
       </div>
-      
+
       {/* Decorative center line for scrub indicator */}
       <div className="absolute top-0 bottom-0 left-1/2 w-px bg-white/5 z-20 hidden md:block"></div>
     </section>
@@ -413,7 +413,7 @@ const Pipeline = () => {
       const isEven = i % 2 !== 0;
       const textBlock = node.querySelector(".node-text");
       const iconBlock = node.querySelector(".node-icon");
-      
+
       gsap.from(textBlock, {
         opacity: 0,
         x: isEven ? 50 : -50,
@@ -423,7 +423,7 @@ const Pipeline = () => {
           start: "top 80%"
         }
       });
-      
+
       gsap.from(iconBlock, {
         scale: 0,
         opacity: 0,
@@ -447,27 +447,27 @@ const Pipeline = () => {
         <h2 className="pipeline-heading text-3xl md:text-5xl font-black text-white mb-32 text-center uppercase tracking-[0.3em]">
           Protocol <span className="text-accent border-b-2 border-accent pb-2">Pipeline</span>
         </h2>
-        
+
         <div className="pipeline-track relative">
           <div className="absolute left-1/2 top-0 bottom-0 w-px -translate-x-1/2 hidden md:block">
             <div className="w-full h-full bg-white/10 relative">
               <div className="pipeline-line absolute top-0 left-0 w-full bg-gradient-to-b from-accent via-secondary to-accent shadow-[0_0_15px_rgba(0,245,255,0.5)] h-0"></div>
             </div>
           </div>
-          
+
           <div className="space-y-4 md:space-y-0 relative min-h-[600px]">
             {steps.map((step, idx) => {
               const isEven = idx % 2 !== 0;
-              
+
               return (
-                <div 
-                  key={idx} 
+                <div
+                  key={idx}
                   className={`pipeline-node flex flex-col md:flex-row ${isEven ? 'md:flex-row-reverse' : ''} items-center justify-between gap-8 md:gap-16 relative z-10 md:pb-32 last:pb-0`}
-                  style={{ 
+                  style={{
                     marginTop: idx === 0 ? '0' : '-80px' // Negative margin to overlap/stagger on desktop
                   }}
                 >
-                  
+
                   {/* Text Content */}
                   <div className={`node-text md:w-[45%] ${!isEven ? 'md:text-right' : 'md:text-left'} bg-white/[0.02] p-8 md:p-12 rounded-[2.5rem] border border-white/5 backdrop-blur-sm hover:border-accent/30 transition-colors group ${isEven ? 'md:translate-y-40' : ''}`}>
                     <h4 className={`text-accent text-xs font-black tracking-[0.4em] mb-4 uppercase inline-flex items-center gap-2 ${!isEven ? 'flex-row-reverse' : ''}`}>
@@ -480,7 +480,7 @@ const Pipeline = () => {
                       {step.desc}
                     </p>
                   </div>
-                  
+
                   {/* Center Node Icon */}
                   <div className={`node-icon relative shrink-0 hidden md:flex ${isEven ? 'md:translate-y-40' : ''}`}>
                     <div className="w-24 h-24 rounded-full bg-trench border-2 border-accent/40 flex items-center justify-center shadow-[0_0_40px_rgba(0,245,255,0.2)] relative z-20 backdrop-blur-xl">
@@ -490,7 +490,7 @@ const Pipeline = () => {
                       </div>
                     </div>
                   </div>
-                  
+
                   <div className="md:w-[45%] hidden md:block"></div>
                 </div>
               );
@@ -502,145 +502,217 @@ const Pipeline = () => {
   );
 };
 
-const HorizontalWaypoints = () => {
+const ZigZagProcessWaypoints = () => {
   const sectionRef = useRef(null);
-  const containerRef = useRef(null);
-  const pathRef = useRef(null);
+  const trackRef = useRef(null);
+  const svgRef = useRef(null);
+  const markerRef = useRef(null);
+  const dotRefs = useRef([]);
+  const cardRefs = useRef([]);
 
-  const waypoints = [
-    { title: "Strategic Discovery", desc: "Analysis of messy legacy strata to identify signal patterns.", icon: <Globe size={24} />, color: "#00f5ff" },
-    { title: "Architecture Forge", desc: "Engineering high-fidelity digital blueprints for zero-latency.", icon: <Layers size={24} />, color: "#7000ff" },
-    { title: "Agile Engineering", desc: "Iterative construction of robust software using modern logic.", icon: <Code size={24} />, color: "#00f5ff" },
-    { title: "Resilience Testing", desc: "Stress-testing all nodes for absolute stability under load.", icon: <ShieldCheck size={24} />, color: "#7000ff" },
-    { title: "Global Activation", desc: "Secure deployment into the stabilized Eonpulse ecosystem.", icon: <Rocket size={24} />, color: "#00f5ff" }
+  const steps = [
+    { id: '01', title: 'Plan', icon: <Globe size={22} />, desc: 'Identify systemic weaknesses and architectural opportunities using deep-scan telemetry protocols.', side: 'right' },
+    { id: '02', title: 'Design', icon: <Layers size={22} />, desc: 'Synthesize blueprint solutions integrating seamlessly with high-trust infrastructure layers.', side: 'left' },
+    { id: '03', title: 'Develop', icon: <Code size={22} />, desc: 'High-fidelity construction of software assets and automated cloud deployment via encrypted conduits.', side: 'right' },
+    { id: '04', title: 'Deploy', icon: <Rocket size={22} />, desc: 'Precision execution with zero-downtime deployment strategies and post-launch monitoring.', side: 'left' }
   ];
 
   useGSAP(() => {
-    const panels = gsap.utils.toArray(".waypoint-panel");
-    
-    // Horizontal Scroll
-    gsap.to(panels, {
-      xPercent: -100 * (panels.length - 1),
-      ease: "none",
+    const tl = gsap.timeline({
       scrollTrigger: {
         trigger: sectionRef.current,
+        start: "top top",
+        end: "+=150%",
         pin: true,
         scrub: 1,
-        snap: 1 / (panels.length - 1),
-        start: "top top",
-        end: () => `+=${containerRef.current.offsetWidth}`,
-        id: "horizontal-scroll"
+        id: "zigzag-scroll-sync"
       }
     });
 
-    // SVG Path drawing
-    gsap.fromTo(pathRef.current, 
-      { strokeDashoffset: 1000, strokeDasharray: 1000 },
-      {
-        strokeDashoffset: 0,
-        ease: "none",
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: "top top",
-          end: () => `+=${containerRef.current.offsetWidth}`,
-          scrub: 1,
-        }
+    // Helper to get relative positions for the marker and SVG
+    const getPos = (i) => {
+      const card = cardRefs.current[i];
+      const track = trackRef.current;
+      if (!card || !track) return { x: 0, y: 0 };
+      const cr = card.getBoundingClientRect();
+      const tr = track.getBoundingClientRect();
+      // Use center of card
+      return {
+        x: cr.left - tr.left + cr.width / 2,
+        y: cr.top - tr.top + cr.height / 2
+      };
+    };
+
+    // Build the SVG path string
+    const buildPath = () => {
+      const points = steps.map((_, i) => getPos(i));
+      if (points.length < 2) return "";
+      let d = `M ${points[0].x} ${points[0].y}`;
+      for (let i = 1; i < points.length; i++) {
+        const prev = points[i - 1];
+        const curr = points[i];
+        const midY = (prev.y + curr.y) / 2;
+        d += ` C ${prev.x} ${midY}, ${curr.x} ${midY}, ${curr.x} ${curr.y}`;
       }
+      return d;
+    };
+
+    // Initial SVG setup
+    const fullPathD = buildPath();
+    const bgPath = svgRef.current.querySelector("#path-bg");
+    const glowPath = svgRef.current.querySelector("#path-glow");
+    if (bgPath) bgPath.setAttribute("d", fullPathD);
+    if (glowPath) glowPath.setAttribute("d", fullPathD);
+
+    // Animate the marker along the path
+    // Since we don't have MotionPath plugin guaranteed, we'll animate between discrete points
+    // and use the same easing to simulate the curve or just direct translation.
+    // For a zig-zag, we'll go step by step.
+
+    steps.forEach((step, i) => {
+      if (i > 0) {
+        const pos = getPos(i);
+        tl.to(markerRef.current, {
+          left: pos.x - 16,
+          top: pos.y - 16,
+          duration: 1,
+          ease: "power2.inOut"
+        }, i - 1);
+      }
+
+      // Activate cards and dots
+      tl.to(cardRefs.current[i], {
+        borderColor: "#00f5ff",
+        backgroundColor: "rgba(0, 245, 255, 0.08)",
+        boxShadow: "0 0 20px rgba(0, 245, 255, 0.15)",
+        scale: 1.02,
+        duration: 0.5
+      }, i === 0 ? 0 : i - 0.5);
+
+      tl.to(dotRefs.current[i], {
+        borderColor: "#00f5ff",
+        scale: 1.3,
+        duration: 0.5
+      }, i === 0 ? 0 : i - 0.5);
+    });
+
+    // Animate stroke dash of the glow path
+    const pathLength = glowPath.getTotalLength();
+    gsap.set(glowPath, { strokeDasharray: pathLength, strokeDashoffset: pathLength });
+    // Header Scan Animation
+    tl.fromTo(".scanner-line", 
+      { left: "-10%" },
+      { left: "110%", duration: steps.length, ease: "none" },
+      0
     );
 
-    // Individual node animations
-    panels.forEach((panel, i) => {
-      gsap.from(panel.querySelector(".waypoint-content"), {
-        opacity: 0,
-        y: 50,
-        duration: 0.5,
-        scrollTrigger: {
-          trigger: panel,
-          containerAnimation: gsap.getById("horizontal-scroll"), // Note: need to ID the tween
-          start: "left center",
-          toggleActions: "play none none reverse",
-          horizontal: true
-        }
-      });
-    });
+    tl.fromTo(".title-text-solid",
+      { clipPath: "inset(0 100% 0 0)" },
+      { clipPath: "inset(0 0% 0 0)", duration: steps.length, ease: "none" },
+      0
+    );
 
   }, { scope: sectionRef });
 
   return (
-    <section ref={sectionRef} className="bg-primary overflow-hidden min-h-screen flex items-center">
-      <div className="absolute top-20 left-10 md:left-24 z-10 pointer-events-none">
-        <h2 className="text-4xl md:text-6xl font-black text-white/10 uppercase tracking-[0.2em] leading-none">
-          Lifecycle <br/> Evolution
-        </h2>
+    <section ref={sectionRef} className="relative bg-[#03070f] py-24 overflow-hidden border-t border-b border-white/5 h-screen flex items-center">
+      {/* Background decoration */}
+      <div className="absolute inset-0 opacity-5 pointer-events-none" style={{ backgroundImage: 'radial-gradient(#00f5ff 0.5px, transparent 0.5px)', backgroundSize: '40px 40px' }} />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-white/[0.015] font-black uppercase text-[12vw] whitespace-nowrap pointer-events-none select-none z-0">
+        LIFECYCLE
       </div>
 
-      <div ref={containerRef} className="flex h-screen" style={{ width: `${waypoints.length * 100}%` }}>
-        {waypoints.map((wp, i) => (
-          <div key={i} className="waypoint-panel w-screen h-full flex items-center justify-center relative px-6 md:px-20 overflow-hidden">
+      {/* Floating Status Badge */}
+      <div className="absolute left-8 top-1/2 -translate-y-1/2 hidden lg:flex flex-col items-center gap-8 z-20">
+        <div className="h-32 w-px bg-gradient-to-b from-transparent via-accent/40 to-transparent" />
+        <div className="rotate-[-90deg] origin-center whitespace-nowrap py-4">
+          <span className="font-mono text-[10px] text-accent font-bold tracking-[0.6em] uppercase flex items-center gap-4">
+            <span className="w-2 h-2 rounded-full bg-accent animate-ping absolute opacity-50" />
+            <span className="w-2 h-2 rounded-full bg-accent relative shadow-[0_0_15px_#00f5ff]" />
+            Protocol Locked
+          </span>
+        </div>
+        <div className="h-32 w-px bg-gradient-to-b from-transparent via-accent/40 to-transparent" />
+      </div>
+
+      <div className="relative z-10 max-w-5xl mx-auto w-full px-6 flex flex-col items-center">
+        <div className="text-center mb-16 mt-20 relative group">
+          <div className="relative inline-block">
+            {/* Background Outline Version */}
+            <h2 className="text-4xl md:text-7xl font-black uppercase tracking-tighter text-white/5 absolute inset-0 select-none">
+              Development <span className="italic font-light" style={{ WebkitTextStroke: '1px rgba(255,255,255,0.1)', color: 'transparent' }}>Waypoints</span>
+            </h2>
             
-            {/* Connecting Line (SVG) */}
-            {i < waypoints.length - 1 && (
-              <div className="absolute top-1/2 left-1/2 w-full h-[2px] z-0 hidden lg:block">
-                 <svg className="w-full h-20 -translate-y-1/2 pointer-events-none overflow-visible">
-                    <path 
-                      ref={i === 0 ? pathRef : null}
-                      d={`M 0 40 Q ${window.innerWidth / 2} ${i % 2 === 0 ? 0 : 80}, ${window.innerWidth} 40`}
-                      fill="none" 
-                      stroke="url(#line-gradient)" 
-                      strokeWidth="2" 
-                      strokeDasharray="10 10"
-                      className="opacity-20"
-                    />
-                    <defs>
-                      <linearGradient id="line-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                        <stop offset="0%" stopColor="#00f5ff" />
-                        <stop offset="100%" stopColor="#7000ff" />
-                      </linearGradient>
-                    </defs>
-                 </svg>
-              </div>
-            )}
+            {/* Foreground Solid Version (Clipped) */}
+            <h2 className="title-text-solid text-4xl md:text-7xl font-black uppercase tracking-tighter text-white relative z-10">
+              Development <span className="text-accent italic font-light">Waypoints</span>
+            </h2>
 
-            <div className="waypoint-content relative z-10 max-w-4xl w-full grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-               <div className="relative">
-                  <div className="absolute -inset-10 bg-accent/10 blur-[60px] rounded-full opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                  <div className="w-32 h-32 md:w-48 md:h-48 rounded-[2rem] bg-white/[0.03] border border-white/10 flex items-center justify-center text-accent relative z-10 backdrop-blur-3xl group">
-                    <div className="absolute inset-4 border border-accent/20 rounded-xl animate-pulse"></div>
-                    <div className="scale-[2] md:scale-[3]">{wp.icon}</div>
-                  </div>
-                  <div className="absolute -bottom-6 -right-6 text-8xl font-black text-white/[0.03] select-none">
-                    0{i + 1}
-                  </div>
-               </div>
-
-               <div className="space-y-6">
-                  <div className="px-4 py-1 rounded-full border border-accent/20 bg-accent/5 inline-block">
-                    <span className="text-[10px] font-black uppercase tracking-[0.3em] text-accent">Phase 0{i+1}</span>
-                  </div>
-                  <h3 className="text-4xl md:text-6xl font-bold text-white tracking-tight">{wp.title}</h3>
-                  <p className="text-xl md:text-2xl text-slate-400 font-light leading-relaxed">
-                    {wp.desc}
-                  </p>
-                  <div className="flex items-center gap-6 pt-6">
-                    <button className="px-8 py-3 bg-white/5 hover:bg-accent/10 border border-white/10 hover:border-accent/40 rounded-full text-xs font-bold text-white uppercase tracking-widest transition-all">
-                      Internal Logs
-                    </button>
-                    <div className="flex -space-x-3">
-                      {[1, 2, 3].map(n => (
-                        <div key={n} className="w-8 h-8 rounded-full border-2 border-primary bg-slate-800 flex items-center justify-center text-[10px] font-bold text-slate-500">
-                          {n}
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-               </div>
+            {/* Scanning Line */}
+            <div className="scanner-line absolute top-0 bottom-0 w-1 bg-accent z-20 shadow-[0_0_20px_#00f5ff] pointer-events-none">
+              <div className="absolute top-[-4px] left-1/2 -translate-x-1/2 w-2 h-2 bg-accent rounded-full shadow-[0_0_10px_#00f5ff]" />
+              <div className="absolute bottom-[-4px] left-1/2 -translate-x-1/2 w-2 h-2 bg-accent rounded-full shadow-[0_0_10px_#00f5ff]" />
             </div>
           </div>
-        ))}
+
+          <div className="mt-6 flex justify-center">
+            <div className="w-24 h-[1px] bg-gradient-to-r from-transparent via-accent/30 to-transparent" />
+          </div>
+        </div>
+
+        <div ref={trackRef} className="relative w-full max-w-4xl min-h-[500px]">
+          {/* SVG Connector */}
+          <svg ref={svgRef} className="absolute inset-0 w-full h-full pointer-events-none overflow-visible">
+            <path id="path-bg" fill="none" stroke="rgba(255,255,255,0.05)" strokeWidth="1.5" strokeDasharray="8 8" />
+            <path id="path-glow" fill="none" stroke="#00f5ff" strokeWidth="2" strokeLinecap="round" />
+          </svg>
+
+          {/* Moving Marker */}
+          <div
+            ref={markerRef}
+            className="absolute w-8 h-8 rounded-full z-30 pointer-events-none flex items-center justify-center border-2 border-accent shadow-[0_0_20px_#00f5ff]"
+            style={{ background: 'rgba(0,245,255,0.2)' }}
+          >
+            <div className="w-2.5 h-2.5 rounded-full bg-accent animate-pulse" />
+          </div>
+
+          {/* Steps Display */}
+          <div className="flex flex-col gap-10">
+            {steps.map((step, i) => (
+              <div key={i} className={`flex items-center relative ${step.side === 'left' ? 'justify-start' : 'justify-end'}`}>
+
+                {/* The Card */}
+                <div
+                  ref={el => cardRefs.current[i] = el}
+                  className="relative w-[260px] md:w-[320px] glass p-6 rounded-3xl border border-white/5 backdrop-blur-3xl group transition-all duration-500"
+                >
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="w-10 h-10 rounded-xl bg-accent/10 border border-accent/20 flex items-center justify-center text-accent group-hover:scale-110 transition-transform">
+                      {step.icon}
+                    </div>
+                    <span className="font-mono text-[9px] tracking-[0.3em] text-accent/50">PHASE {step.id}</span>
+                  </div>
+                  <h3 className="text-xl font-bold text-white mb-2 group-hover:text-accent transition-colors tracking-tight">{step.title}</h3>
+                  <p className="text-slate-400 font-light text-[11px] leading-relaxed line-clamp-2">{step.desc}</p>
+                </div>
+
+                {/* The Dot (Anchor) */}
+                <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+                  <div
+                    ref={el => dotRefs.current[i] = el}
+                    className="w-3 h-3 rounded-full border-2 border-white/20 bg-primary"
+                  />
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
     </section>
+
   );
 };
+
 
 
 const WhyChooseUs = () => {
@@ -677,21 +749,21 @@ const WhyChooseUs = () => {
   return (
     <section ref={sectionRef} className="py-40 abyssal-fog overflow-hidden border-t border-white/5 relative perspective-[1000px]">
       <div className="depth-haze"></div>
-      
+
       {/* Bio entities floating in background */}
       <div className="bio-entity bio-pulse text-accent top-[10%] left-[5%] opacity-20"><div className="manta-ray"></div></div>
       <div className="bio-entity bio-pulse text-secondary top-[40%] right-[10%] opacity-20"><div className="jelly-form" style={{ transform: 'scale(0.8) rotate(15deg)' }}></div></div>
       <div className="bio-entity bio-pulse text-accent bottom-[20%] left-[15%] opacity-10"><div className="wireframe-cube"></div></div>
 
       <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24 items-center relative z-10">
-        
+
         {/* Left Side Text */}
         <div className="lg:col-span-6">
           <h2 className="why-item text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-16 tracking-tight leading-[1.1]">
-            Global Resilience <br/>
+            Global Resilience <br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent to-secondary">Built by Eonpulse</span>
           </h2>
-          
+
           <div className="space-y-8">
             <div className="why-item flex gap-8 p-8 rounded-[2rem] bg-white/[0.02] border border-white/5 hover:bg-white/[0.04] hover:border-accent/20 transition-all group backdrop-blur-md">
               <div className="shrink-0 w-16 h-16 rounded-2xl bg-gradient-to-br from-accent/10 to-transparent border border-accent/20 flex items-center justify-center group-hover:-rotate-12 transition-transform shadow-[0_0_20px_rgba(0,245,255,0.1)]">
@@ -702,7 +774,7 @@ const WhyChooseUs = () => {
                 <p className="text-slate-400 text-sm md:text-base leading-relaxed">Full international operational standards within the UAE economic framework, ensuring secure and legal global transactions.</p>
               </div>
             </div>
-            
+
             <div className="why-item flex gap-8 p-8 rounded-[2rem] bg-white/[0.02] border border-white/5 hover:bg-white/[0.04] hover:border-secondary/20 transition-all group backdrop-blur-md">
               <div className="shrink-0 w-16 h-16 rounded-2xl bg-gradient-to-br from-secondary/10 to-transparent border border-secondary/20 flex items-center justify-center group-hover:rotate-12 transition-transform shadow-[0_0_20px_rgba(99,102,241,0.1)]">
                 <Cpu className="text-secondary" size={28} />
@@ -714,25 +786,25 @@ const WhyChooseUs = () => {
             </div>
           </div>
         </div>
-        
+
         {/* Right Side Card */}
         <div className="lg:col-span-6 flex justify-center lg:justify-end">
           <div className="why-widget neuro-glass p-12 md:p-16 rounded-[4rem] text-center w-full max-w-lg relative overflow-hidden group">
             <div className="absolute inset-0 bg-gradient-to-br from-accent/10 via-transparent to-secondary/10 opacity-50 group-hover:opacity-100 transition-opacity duration-700"></div>
-            
+
             <div className="relative z-10">
               <div className="w-32 h-32 bg-black/40 rounded-full flex items-center justify-center mx-auto mb-10 glow-pulse border border-accent/30 backdrop-blur-md">
                 <Server className="text-accent" size={48} strokeWidth={1.5} />
               </div>
-              
+
               <p className="text-2xl md:text-3xl font-bold text-white mb-12 leading-tight">
                 Infrastructure built on stable cloud-native foundations.
               </p>
-              
+
               <div className="flex flex-wrap justify-center gap-3">
                 {["AWS Core", "Kubernetes", "PostgreSQL", "Rust"].map((tech, idx) => (
-                  <span 
-                    key={idx} 
+                  <span
+                    key={idx}
                     className="px-6 py-3 rounded-full bg-white/5 border border-white/10 text-xs text-slate-300 font-bold tracking-[0.2em] uppercase hover:bg-accent hover:text-primary transition-colors cursor-default"
                   >
                     {tech}
@@ -742,7 +814,7 @@ const WhyChooseUs = () => {
             </div>
           </div>
         </div>
-        
+
       </div>
     </section>
   );
@@ -758,8 +830,7 @@ const Home = () => {
       <Hero />
       <ServicesSection />
       <ImageMaskReveal />
-      <Pipeline />
-      <HorizontalWaypoints />
+      <ZigZagProcessWaypoints />
       <WhyChooseUs />
     </>
   );
