@@ -276,9 +276,7 @@ const Header = () => {
             </nav>
 
             {/* Desktop CTA */}
-            <button className="cta-btn" style={{ display: 'none' }}
-              ref={el => { if (el) el.style.display = ''; }}
-            >
+            <button className="cta-btn hidden md:block">
               Start a Project
             </button>
 
