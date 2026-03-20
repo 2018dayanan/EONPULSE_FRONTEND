@@ -1,28 +1,85 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
-import { motion, useScroll, useSpring } from 'framer-motion';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useGSAP } from '@gsap/react';
 import {
   ArrowLeft, Clock, Calendar, User, Share2,
   Twitter, Linkedin, Facebook, Link as LinkIcon,
   ChevronRight, Terminal, Cpu, ShieldCheck
 } from 'lucide-react';
 
+gsap.registerPlugin(ScrollTrigger);
+
 const BlogArticle = () => {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  // Scroll Progress Bar Setup
-  const { scrollYProgress } = useScroll();
-  const scaleX = useSpring(scrollYProgress, {
-    stiffness: 100,
-    damping: 30,
-    restDelta: 0.001
-  });
+  const containerRef = useRef(null);
+  const progressRef = useRef(null);
 
   // Scroll to top on load based on article ID
   useEffect(() => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo({ top: 0, behavior: 'instant' });
+    // Refresh ScrollTrigger on route change to recalculate heights
+    ScrollTrigger.refresh();
   }, [id]);
+
+  useGSAP(() => {
+    // 1. Reading Progress Bar
+    gsap.to(progressRef.current, {
+      scaleX: 1,
+      ease: "none",
+      scrollTrigger: {
+        trigger: document.documentElement,
+        start: "top top",
+        end: "bottom bottom",
+        scrub: 0.1
+      }
+    });
+
+    // 2. Hero Section Entrance (Stagger)
+    gsap.from(".hero-anim", {
+      opacity: 0,
+      y: 30,
+      duration: 1,
+      stagger: 0.15,
+      ease: "power3.out"
+    });
+
+    // 3. Article Body Entrance
+    gsap.from(".article-body-anim", {
+      opacity: 0,
+      y: 40,
+      duration: 1,
+      delay: 0.3,
+      ease: "power3.out"
+    });
+
+    // 4. Background Orbs subtle movement
+    gsap.to(".orb-anim", {
+      y: -20,
+      x: 10,
+      duration: 4,
+      repeat: -1,
+      yoyo: true,
+      ease: "sine.inOut"
+    });
+
+    // 5. Related Articles Entrance
+    gsap.from(".related-anim", {
+      opacity: 0,
+      y: 30,
+      stagger: 0.2,
+      duration: 0.8,
+      ease: "back.out(1.2)",
+      scrollTrigger: {
+        trigger: ".related-container",
+        start: "top 85%"
+      }
+    });
+
+  }, { scope: containerRef, dependencies: [id] });
 
   // Helper for generating stylized dummy content to solve the "content missing" issue
   const generateContent = (title, focus) => `
@@ -135,11 +192,11 @@ const BlogArticle = () => {
     .map(([key, val]) => ({ id: key, ...val }));
 
   return (
-    <div className="min-h-screen bg-primary text-slate-300 selection:bg-accent selection:text-primary pb-32">
+    <div ref={containerRef} className="min-h-screen bg-primary text-slate-300 selection:bg-accent selection:text-primary pb-32">
       {/* Scroll Progress Bar */}
-      <motion.div
-        className="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-accent to-secondary origin-left z-50 shadow-[0_0_20px_rgba(0,245,255,0.6)]"
-        style={{ scaleX }}
+      <div
+        ref={progressRef}
+        className="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-accent to-secondary origin-left z-50 shadow-[0_0_20px_rgba(0,245,255,0.6)] scale-x-0"
       />
 
       {/* Hero Section */}
@@ -150,17 +207,13 @@ const BlogArticle = () => {
         <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-accent/20 to-transparent"></div>
 
         {/* Abstract floating shapes */}
-        <div className="absolute top-20 right-20 w-96 h-96 bg-accent/5 rounded-full filter blur-[100px] animate-pulse"></div>
-        <div className="absolute bottom-10 left-10 w-80 h-80 bg-secondary/5 rounded-full filter blur-[100px] animate-pulse" style={{ animationDelay: '2s' }}></div>
+        <div className="orb-anim absolute top-20 right-20 w-96 h-96 bg-accent/5 rounded-full filter blur-[100px]"></div>
+        <div className="orb-anim absolute bottom-10 left-10 w-80 h-80 bg-secondary/5 rounded-full filter blur-[100px]" style={{ animationDelay: '2s' }}></div>
 
         <div className="relative z-10 max-w-5xl mx-auto w-full">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
-          >
+          <div>
             {/* Breadcrumb / Back Navigation */}
-            <nav className="flex items-center gap-2 text-xs font-bold tracking-widest text-slate-500 mb-8 uppercase">
+            <nav className="hero-anim flex items-center gap-2 text-xs font-bold tracking-widest text-slate-500 mb-8 uppercase">
               <Link to="/blog" className="hover:text-accent transition-colors flex items-center gap-1 group">
                 <ArrowLeft size={14} className="group-hover:-translate-x-1 transition-transform" />
                 Blog
@@ -169,7 +222,7 @@ const BlogArticle = () => {
               <span className="text-slate-400">{article.category}</span>
             </nav>
 
-            <div className="flex items-center gap-4 mb-8">
+            <div className="hero-anim flex items-center gap-4 mb-8">
               <span className="px-5 py-2 bg-white/5 text-accent text-xs font-black uppercase tracking-[0.2em] rounded-full border border-accent/20 shadow-[0_0_15px_rgba(0,245,255,0.15)] flex items-center gap-2 backdrop-blur-md">
                 <Terminal size={14} /> {article.category}
               </span>
@@ -178,11 +231,11 @@ const BlogArticle = () => {
               </span>
             </div>
 
-            <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-10 leading-[1.1] tracking-tight">
+            <h1 className="hero-anim text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-10 leading-[1.1] tracking-tight">
               {article.title}
             </h1>
 
-            <div className="flex flex-wrap items-center gap-8 text-slate-400 text-sm border-t border-white/10 pt-8">
+            <div className="hero-anim flex flex-wrap items-center gap-8 text-slate-400 text-sm border-t border-white/10 pt-8">
               <div className="flex items-center gap-3">
                 <div className="w-12 h-12 rounded-full bg-gradient-to-br from-accent to-secondary p-[2px] shadow-[0_0_20px_rgba(0,245,255,0.2)]">
                   <div className="w-full h-full rounded-full bg-primary flex items-center justify-center border-2 border-primary">
@@ -202,7 +255,7 @@ const BlogArticle = () => {
                 <span className="font-medium text-slate-300">{article.date}</span>
               </div>
             </div>
-          </motion.div>
+          </div>
         </div>
       </section>
 
@@ -234,16 +287,13 @@ const BlogArticle = () => {
 
         {/* Article Body */}
         <div className="lg:col-span-8">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className={tailwindProseClasses}
+          <div
+            className={`article-body-anim \${tailwindProseClasses}`}
             dangerouslySetInnerHTML={{ __html: article.content }}
           />
 
           {/* Article Footer & Tags */}
-          <div className="mt-16 pt-8 border-t border-white/10">
+          <div className="mt-16 pt-8 border-t border-white/10 opacity-0 article-body-anim">
             <div className="flex flex-wrap items-center gap-3">
               <span className="text-sm font-bold text-slate-500 uppercase tracking-widest mr-2">Tags:</span>
               {["Deep-Sea", "Innovation", article.category].map((tag) => (
@@ -260,7 +310,7 @@ const BlogArticle = () => {
           <div className="sticky top-32 space-y-8">
 
             {/* Author Profile Box */}
-            <div className="glass p-8 rounded-3xl border border-white/5 hover:border-accent/20 transition-all relative overflow-hidden group">
+            <div className="article-body-anim glass p-8 rounded-3xl border border-white/5 hover:border-accent/20 transition-all relative overflow-hidden group">
               <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
                 <Cpu size={100} className="text-accent" />
               </div>
@@ -285,7 +335,7 @@ const BlogArticle = () => {
             </div>
 
             {/* Newsletter widget */}
-            <div className="bg-gradient-to-b from-accent/10 to-transparent p-1 rounded-3xl">
+            <div className="article-body-anim bg-gradient-to-b from-accent/10 to-transparent p-1 rounded-3xl">
               <div className="bg-primary/90 backdrop-blur p-8 rounded-[22px] border border-white/5">
                 <ShieldCheck size={32} className="text-accent mb-6" />
                 <h4 className="text-xl font-bold text-white mb-3">Subsea Insights</h4>
@@ -308,7 +358,7 @@ const BlogArticle = () => {
       </section>
 
       {/* Related Posts Section */}
-      <section className="max-w-7xl mx-auto px-6 mt-32 border-t border-white/10 pt-20">
+      <section className="related-container max-w-7xl mx-auto px-6 mt-32 border-t border-white/10 pt-20">
         <h2 className="text-3xl font-bold text-white mb-12 flex items-center gap-4">
           <span className="w-8 h-1 bg-accent rounded-full"></span>
           Related Articles
@@ -317,9 +367,9 @@ const BlogArticle = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {relatedPosts.map((post) => (
             <Link
-              to={`/blog/${post.id}`}
+              to={`/blog/\${post.id}`}
               key={post.id}
-              className="glass p-6 rounded-[2rem] border border-white/5 hover:border-accent/30 transition-all group tilt-card"
+              className="related-anim glass p-6 rounded-[2rem] border border-white/5 hover:border-accent/30 transition-all group tilt-card"
             >
               <div className="w-full h-40 bg-black/40 rounded-2xl mb-6 relative overflow-hidden border border-white/5 group-hover:border-accent/20">
                 <div className="absolute inset-0 bg-gradient-to-br from-accent/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>

@@ -12,6 +12,8 @@ import Blog from './components/Blog';
 import BlogArticle from './components/BlogArticle';
 import Footer from './components/Footer';
 import ParticleField from './components/ParticleField';
+import CursorTrail from './components/CursorTrail';
+import { ReactLenis } from '@studio-freight/react-lenis';
 
 function App() {
   const location = useLocation();
@@ -64,23 +66,26 @@ function App() {
   }, [location]);
 
   return (
-    <div className="bg-primary text-slate-100 antialiased selection:bg-accent selection:text-primary min-h-screen">
-      <div className="abyss-overlay"></div>
-      <ParticleField />
-      <Header />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/services" element={<Services />} />
-        <Route path="/team" element={<Team />} />
-        <Route path="/contactus" element={<ContactUs />} />
-        <Route path="/testimonial" element={<Testimonial />} />
-        <Route path="/career" element={<Career />} />
-        <Route path="/blog" element={<Blog />} />
-        <Route path="/blog/:id" element={<BlogArticle />} />
-      </Routes>
-      <Footer />
-    </div>
+    <ReactLenis root options={{ lerp: 0.08, duration: 1.2, smoothWheel: true }}>
+      <div className="bg-primary text-slate-100 antialiased selection:bg-accent selection:text-primary min-h-screen">
+        <div className="abyss-overlay"></div>
+        <ParticleField />
+        <CursorTrail />
+        <Header />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/services" element={<Services />} />
+          <Route path="/team" element={<Team />} />
+          <Route path="/contactus" element={<ContactUs />} />
+          <Route path="/testimonial" element={<Testimonial />} />
+          <Route path="/career" element={<Career />} />
+          <Route path="/blog" element={<Blog />} />
+          <Route path="/blog/:id" element={<BlogArticle />} />
+        </Routes>
+        <Footer />
+      </div>
+    </ReactLenis>
   );
 }
 
