@@ -600,7 +600,7 @@ const ZigZagProcessWaypoints = () => {
     const pathLength = glowPath.getTotalLength();
     gsap.set(glowPath, { strokeDasharray: pathLength, strokeDashoffset: pathLength });
     // Header Scan Animation
-    tl.fromTo(".scanner-line", 
+    tl.fromTo(".scanner-line",
       { left: "-10%" },
       { left: "110%", duration: steps.length, ease: "none" },
       0
@@ -642,7 +642,7 @@ const ZigZagProcessWaypoints = () => {
             <h2 className="text-4xl md:text-7xl font-black uppercase tracking-tighter text-white/5 absolute inset-0 select-none">
               Development <span className="italic font-light" style={{ WebkitTextStroke: '1px rgba(255,255,255,0.1)', color: 'transparent' }}>Waypoints</span>
             </h2>
-            
+
             {/* Foreground Solid Version (Clipped) */}
             <h2 className="title-text-solid text-4xl md:text-7xl font-black uppercase tracking-tighter text-white relative z-10">
               Development <span className="text-accent italic font-light">Waypoints</span>

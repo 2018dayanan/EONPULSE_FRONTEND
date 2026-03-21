@@ -4,12 +4,20 @@ import { NavLink, Link } from 'react-router-dom';
 const Header = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [isHub, setIsHub] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 20);
-    window.addEventListener('scroll', handleScroll);
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      setScrolled(currentScrollY > 20);
+      setIsHub(currentScrollY > 200);
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
 
   const menuItems = [
     { name: 'Home', path: '/' },
@@ -26,20 +34,83 @@ const Header = () => {
     <>
       <style>{`
         .header-root {
-          position: sticky;
+          position: fixed;
           top: 0;
-          z-index: 100;
+          z-index: 1000;
           width: 100%;
-          transition: all 0.4s ease;
+          transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+          transform-origin: top right;
         }
 
-        /* ── The key fix: solid + blur so it never goes transparent ── */
+        /* ── Hub Mode Transformations ── */
+        .header-root.hub-mode {
+          width: 100%;
+          height: 0;
+          top: 0;
+          left: 0;
+          right: 0;
+          background: transparent;
+        }
+
+        .hub-logo-orb, .hub-menu-orb {
+          position: fixed;
+          top: 24px;
+          width: 50px;
+          height: 50px;
+          border-radius: 25px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          background: rgba(5, 11, 22, 0.9);
+          backdrop-filter: blur(20px);
+          border: 1px solid rgba(0, 245, 255, 0.3);
+          box-shadow: 0 0 30px rgba(0, 245, 255, 0.2);
+          transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+          z-index: 2000;
+          opacity: 0;
+          pointer-events: none;
+        }
+
+        .hub-logo-orb { left: 24px; transform: translateX(-100px); }
+        .hub-menu-orb { right: 24px; transform: translateX(100px); pointer-events: auto; }
+
+        .hub-mode .hub-logo-orb { opacity: 1; transform: translateX(0); pointer-events: auto; }
+        .hub-mode .hub-menu-orb { opacity: 1; transform: translateX(0); }
+
+        .hub-menu-orb.expanded {
+          width: auto;
+          border-radius: 12px;
+          padding-right: 15px;
+          padding-left: 10px;
+        }
+
+        .hub-mode .header-bar {
+          opacity: 0;
+          pointer-events: none;
+        }
+
+        /* Disable hub mode constraints when drawer is open */
+        .header-root.drawer-open {
+          width: 100vw !important;
+          height: 100vh !important;
+          height: 100dvh !important;
+          top: 0 !important;
+          left: 0 !important;
+          right: 0 !important;
+          bottom: 0 !important;
+          border-radius: 0 !important;
+          background: rgba(5, 11, 22, 0.98) !important;
+          transform: none !important;
+        }
+
         .header-bar {
           background: rgba(8, 17, 34, 0.92);
           backdrop-filter: blur(24px) saturate(180%);
           -webkit-backdrop-filter: blur(24px) saturate(180%);
           border-bottom: 1px solid rgba(0, 245, 255, 0.10);
-          transition: background 0.4s ease, box-shadow 0.4s ease;
+          transition: all 0.6s ease;
+          width: 100%;
+          height: 100%;
         }
         .header-bar.scrolled {
           background: rgba(5, 11, 22, 0.97);
@@ -97,7 +168,12 @@ const Header = () => {
         }
 
         /* ── Desktop nav ── */
-        .desktop-nav { display: none; align-items: center; gap: 0.25rem; }
+        .desktop-nav { 
+          display: none; 
+          align-items: center; 
+          gap: 0.25rem; 
+          transition: opacity 0.4s ease, transform 0.4s ease;
+        }
         @media (min-width: 768px) { .desktop-nav { display: flex; } }
 
         .nav-link {
@@ -149,15 +225,23 @@ const Header = () => {
 
         /* ── Hamburger ── */
         .hamburger {
-          display: flex; align-items: center; justify-content: center;
+          display: flex !important; 
+          align-items: center; justify-content: center;
           width: 40px; height: 40px;
           background: rgba(255,255,255,0.05);
           border: 1px solid rgba(255,255,255,0.1);
-          border-radius: 8px; cursor: pointer; color: #fff;
+          border-radius: 8px; cursor: pointer; color: #ffffff !important;
           transition: background 0.2s ease;
         }
-        .hamburger:hover { background: rgba(0,245,255,0.1); border-color: rgba(0,245,255,0.3); }
-        @media (min-width: 768px) { .hamburger { display: none; } }
+        @media (min-width: 768px) {
+          .hamburger { display: none !important; }
+          .hub-mode .hamburger { display: flex !important; }
+        }
+        
+        .hub-mode .hamburger {
+          background: transparent;
+          border: none;
+        }
 
         /* ── Mobile drawer ── */
         .mobile-drawer {
@@ -229,6 +313,42 @@ const Header = () => {
         }
         .mobile-cta:hover { filter: brightness(1.1); transform: translateY(-1px); }
 
+        .hub-mode .desktop-nav:not(.expanded-nav) {
+          display: none;
+        }
+        
+        @media (min-width: 768px) {
+          .hub-mode .desktop-nav:not(.expanded-nav) {
+            display: flex;
+            opacity: 0;
+            transform: scale(0.9);
+            pointer-events: none;
+          }
+        }
+
+        .hub-mode .logo-text-wrap,
+        .hub-mode .cta-btn,
+        .hub-mode .logo-link {
+          display: none !important;
+        }
+        
+        .hub-mode .header-inner {
+          display: none;
+        }
+        
+        .drawer-open.header-root {
+          width: 100vw !important;
+          height: 100vh !important;
+          top: 0 !important;
+          left: 0 !important;
+          padding: 0 !important;
+        }
+
+        .drawer-open .hub-logo-orb,
+        .drawer-open .hub-menu-orb {
+          display: none !important;
+        }
+
         .mobile-footer {
           margin-top: 2rem; padding-top: 1.25rem;
           border-top: 1px solid rgba(255,255,255,0.06);
@@ -245,16 +365,65 @@ const Header = () => {
           font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase;
           color: rgba(148,163,184,0.4); font-weight: 600;
         }
+
+        @media (max-width: 767px) {
+          .header-inner {
+            padding: 0 1rem;
+            height: 64px;
+          }
+          .header-root.hub-mode {
+            width: 56px;
+            height: 56px;
+            top: 16px;
+            right: 16px;
+          }
+          .drawer-open .header-inner {
+            height: 72px;
+            padding: 0 1.5rem;
+          }
+        }
       `}</style>
 
-      <header className="header-root">
-        <div className={`header-bar${scrolled ? ' scrolled' : ''}`}>
-          <div className="header-inner">
+      <header 
+        className={`header-root ${isHub ? 'hub-mode' : ''} ${mobileMenuOpen ? 'drawer-open' : ''}`}
+      >
+        {/* The Hub Orbs (Active on Scroll) */}
+        {!mobileMenuOpen && (
+          <>
+            <div className="hub-logo-orb">
+              <span className="material-symbols-outlined text-white">bolt</span>
+            </div>
+            <div 
+              className={`hub-menu-orb ${isHovered ? 'expanded' : ''}`}
+              onMouseEnter={() => setIsHovered(true)}
+              onMouseLeave={() => setIsHovered(false)}
+            >
+              <div className="flex items-center gap-3">
+                <button 
+                  className="hamburger" 
+                  style={{ display: 'flex !important' }}
+                  onClick={() => setMobileMenuOpen(true)}
+                >
+                  <span className="material-symbols-outlined text-white">menu</span>
+                </button>
+                {isHovered && (
+                  <nav className="desktop-nav flex gap-4 pr-2">
+                    {menuItems.slice(0, 4).map((item) => (
+                      <NavLink key={item.path} to={item.path} className="nav-link text-[0.65rem]">{item.name}</NavLink>
+                    ))}
+                  </nav>
+                )}
+              </div>
+            </div>
+          </>
+        )}
 
-            {/* Logo */}
-            <Link to="/" className="logo-link">
+        <div className={`header-bar ${scrolled && !isHub ? 'scrolled' : ''}`}>
+          <div className="header-inner">
+            {/* Standard Logo */}
+            <Link to="/" className={`logo-link ${isHub ? 'hidden' : 'flex'}`}>
               <div className="logo-icon">
-                <span className="material-symbols-outlined">bolt</span>
+                <span className="material-symbols-outlined" style={{ color: '#fff' }}>bolt</span>
               </div>
               <div className="logo-text-wrap">
                 <span className="logo-name">EONPULSE</span>
@@ -263,7 +432,7 @@ const Header = () => {
             </Link>
 
             {/* Desktop nav */}
-            <nav className="desktop-nav">
+            <nav className={`desktop-nav ${isHovered ? 'expanded-nav' : ''}`}>
               {menuItems.map((item) => (
                 <NavLink
                   key={item.path}
@@ -276,9 +445,11 @@ const Header = () => {
             </nav>
 
             {/* Desktop CTA */}
-            <button className="cta-btn hidden md:block">
-              Start a Project
-            </button>
+            {!isHub && (
+              <button className="cta-btn hidden md:block">
+                Start a Project
+              </button>
+            )}
 
             {/* Hamburger */}
             <button
@@ -296,6 +467,15 @@ const Header = () => {
         {/* Mobile drawer */}
         {mobileMenuOpen && (
           <div className="mobile-drawer">
+            <Link to="/" className="flex items-center gap-4 mb-12" onClick={() => setMobileMenuOpen(false)}>
+              <div className="logo-icon">
+                <span className="material-symbols-outlined" style={{ color: '#fff' }}>bolt</span>
+              </div>
+              <div className="logo-text-wrap">
+                <span className="logo-name">EONPULSE</span>
+                <span className="logo-sub text-[0.4rem]">Subsea Digital Systems</span>
+              </div>
+            </Link>
             <nav className="mobile-nav">
               {menuItems.map((item) => (
                 <NavLink
