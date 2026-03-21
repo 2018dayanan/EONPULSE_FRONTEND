@@ -5,7 +5,6 @@ const Header = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [isHub, setIsHub] = useState(false);
-  const [isHovered, setIsHovered] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -77,12 +76,6 @@ const Header = () => {
         .hub-mode .hub-logo-orb { opacity: 1; transform: translateX(0); pointer-events: auto; }
         .hub-mode .hub-menu-orb { opacity: 1; transform: translateX(0); }
 
-        .hub-menu-orb.expanded {
-          width: auto;
-          border-radius: 12px;
-          padding-right: 15px;
-          padding-left: 10px;
-        }
 
         .hub-mode .header-bar {
           opacity: 0;
@@ -313,18 +306,6 @@ const Header = () => {
         }
         .mobile-cta:hover { filter: brightness(1.1); transform: translateY(-1px); }
 
-        .hub-mode .desktop-nav:not(.expanded-nav) {
-          display: none;
-        }
-        
-        @media (min-width: 768px) {
-          .hub-mode .desktop-nav:not(.expanded-nav) {
-            display: flex;
-            opacity: 0;
-            transform: scale(0.9);
-            pointer-events: none;
-          }
-        }
 
         .hub-mode .logo-text-wrap,
         .hub-mode .cta-btn,
@@ -384,7 +365,7 @@ const Header = () => {
         }
       `}</style>
 
-      <header 
+      <header
         className={`header-root ${isHub ? 'hub-mode' : ''} ${mobileMenuOpen ? 'drawer-open' : ''}`}
       >
         {/* The Hub Orbs (Active on Scroll) */}
@@ -393,26 +374,14 @@ const Header = () => {
             <div className="hub-logo-orb">
               <span className="material-symbols-outlined text-white">bolt</span>
             </div>
-            <div 
-              className={`hub-menu-orb ${isHovered ? 'expanded' : ''}`}
-              onMouseEnter={() => setIsHovered(true)}
-              onMouseLeave={() => setIsHovered(false)}
-            >
-              <div className="flex items-center gap-3">
-                <button 
-                  className="hamburger" 
-                  style={{ display: 'flex !important' }}
+            <div className="hub-menu-orb">
+              <div className="flex items-center justify-center">
+                <button
+                  className="hamburger"
                   onClick={() => setMobileMenuOpen(true)}
                 >
                   <span className="material-symbols-outlined text-white">menu</span>
                 </button>
-                {isHovered && (
-                  <nav className="desktop-nav flex gap-4 pr-2">
-                    {menuItems.slice(0, 4).map((item) => (
-                      <NavLink key={item.path} to={item.path} className="nav-link text-[0.65rem]">{item.name}</NavLink>
-                    ))}
-                  </nav>
-                )}
               </div>
             </div>
           </>
@@ -432,7 +401,7 @@ const Header = () => {
             </Link>
 
             {/* Desktop nav */}
-            <nav className={`desktop-nav ${isHovered ? 'expanded-nav' : ''}`}>
+            <nav className="desktop-nav">
               {menuItems.map((item) => (
                 <NavLink
                   key={item.path}

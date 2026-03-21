@@ -518,17 +518,6 @@ const ZigZagProcessWaypoints = () => {
   ];
 
   useGSAP(() => {
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: sectionRef.current,
-        start: "top top",
-        end: "+=150%",
-        pin: true,
-        scrub: 1,
-        id: "zigzag-scroll-sync"
-      }
-    });
-
     // Helper to get relative positions for the marker and SVG
     const getPos = (i) => {
       const card = cardRefs.current[i];
@@ -556,6 +545,23 @@ const ZigZagProcessWaypoints = () => {
       }
       return d;
     };
+
+    const initialPos = getPos(0);
+    gsap.set(markerRef.current, {
+      left: initialPos.x - 16,
+      top: initialPos.y - 16
+    });
+
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: sectionRef.current,
+        start: "top top",
+        end: "+=150%",
+        pin: true,
+        scrub: 1,
+        id: "zigzag-scroll-sync"
+      }
+    });
 
     // Initial SVG setup
     const fullPathD = buildPath();
@@ -615,7 +621,7 @@ const ZigZagProcessWaypoints = () => {
   }, { scope: sectionRef });
 
   return (
-    <section ref={sectionRef} className="relative bg-[#03070f] py-24 overflow-hidden border-t border-b border-white/5 h-screen flex items-center">
+    <section ref={sectionRef} className="relative bg-[#03070f] py-12 overflow-hidden border-t border-b border-white/5 h-screen flex items-center">
       {/* Background decoration */}
       <div className="absolute inset-0 opacity-5 pointer-events-none" style={{ backgroundImage: 'radial-gradient(#00f5ff 0.5px, transparent 0.5px)', backgroundSize: '40px 40px' }} />
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-white/[0.015] font-black uppercase text-[12vw] whitespace-nowrap pointer-events-none select-none z-0">
@@ -636,7 +642,7 @@ const ZigZagProcessWaypoints = () => {
       </div>
 
       <div className="relative z-10 max-w-5xl mx-auto w-full px-6 flex flex-col items-center">
-        <div className="text-center mb-16 mt-20 relative group">
+        <div className="text-center mb-8 mt-6 relative group">
           <div className="relative inline-block">
             {/* Background Outline Version */}
             <h2 className="text-4xl md:text-7xl font-black uppercase tracking-tighter text-white/5 absolute inset-0 select-none">
@@ -677,14 +683,14 @@ const ZigZagProcessWaypoints = () => {
           </div>
 
           {/* Steps Display */}
-          <div className="flex flex-col gap-10">
+          <div className="flex flex-col gap-4">
             {steps.map((step, i) => (
               <div key={i} className={`flex items-center relative ${step.side === 'left' ? 'justify-start' : 'justify-end'}`}>
 
                 {/* The Card */}
                 <div
                   ref={el => cardRefs.current[i] = el}
-                  className="relative w-[260px] md:w-[320px] glass p-6 rounded-3xl border border-white/5 backdrop-blur-3xl group transition-all duration-500"
+                  className="relative w-[260px] md:w-[320px] glass p-4 rounded-3xl border border-white/5 backdrop-blur-3xl group transition-all duration-500"
                 >
                   <div className="flex items-center gap-3 mb-4">
                     <div className="w-10 h-10 rounded-xl bg-accent/10 border border-accent/20 flex items-center justify-center text-accent group-hover:scale-110 transition-transform">
@@ -717,34 +723,104 @@ const ZigZagProcessWaypoints = () => {
 
 const WhyChooseUs = () => {
   const sectionRef = useRef(null);
+  const widgetRef = useRef(null);
+  const iconRefs = useRef([]);
 
   useGSAP(() => {
-    // Left side text stagger
+    // 1. Initial Scroll Entrance
     gsap.from(".why-item", {
       opacity: 0,
-      y: 40,
-      duration: 0.8,
-      stagger: 0.15,
-      ease: "power2.out",
-      scrollTrigger: {
-        trigger: sectionRef.current,
-        start: "top 75%",
-      }
-    });
-
-    // Right side widget
-    gsap.from(".why-widget", {
-      opacity: 0,
-      scale: 0.9,
-      rotationY: 15,
+      x: -50,
       duration: 1,
+      stagger: 0.2,
       ease: "power3.out",
       scrollTrigger: {
         trigger: sectionRef.current,
-        start: "top 75%",
+        start: "top 70%",
       }
     });
+
+    gsap.from(widgetRef.current, {
+      opacity: 0,
+      x: 100,
+      scale: 0.8,
+      rotationY: 45,
+      duration: 1.4,
+      ease: "power4.out",
+      scrollTrigger: {
+        trigger: sectionRef.current,
+        start: "top 70%",
+      }
+    });
+
+    // 2. Interactive Tilt for Widget
+    const handleWidgetMove = (e) => {
+      const { clientX, clientY } = e;
+      const rect = sectionRef.current.getBoundingClientRect();
+      const x = (clientX - rect.left) / rect.width - 0.5;
+      const y = (clientY - rect.top) / rect.height - 0.5;
+
+      gsap.to(widgetRef.current, {
+        rotationY: x * 25,
+        rotationX: -y * 25,
+        x: x * 30,
+        y: y * 30,
+        duration: 0.8,
+        ease: "power2.out",
+        transformPerspective: 1000
+      });
+
+      // Background parallax
+      gsap.to(".bio-entity", {
+        x: x * 80,
+        y: y * 80,
+        duration: 1.5,
+        stagger: 0.1,
+        ease: "power1.out"
+      });
+    };
+
+    const handleWidgetLeave = () => {
+      gsap.to(widgetRef.current, {
+        rotationY: 0,
+        rotationX: 0,
+        x: 0,
+        y: 0,
+        duration: 1.5,
+        ease: "elastic.out(1, 0.3)"
+      });
+      gsap.to(".bio-entity", {
+        x: 0,
+        y: 0,
+        duration: 2,
+        ease: "power2.out"
+      });
+    };
+
+    const section = sectionRef.current;
+    section.addEventListener("mousemove", handleWidgetMove);
+    section.addEventListener("mouseleave", handleWidgetLeave);
+
+    return () => {
+      section.removeEventListener("mousemove", handleWidgetMove);
+      section.removeEventListener("mouseleave", handleWidgetLeave);
+    };
   }, { scope: sectionRef });
+
+  const handleMagneticMove = (e, i) => {
+    const icon = iconRefs.current[i];
+    const { clientX, clientY } = e;
+    const rect = icon.getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
+    const x = (clientX - centerX) * 0.4;
+    const y = (clientY - centerY) * 0.4;
+    gsap.to(icon, { x, y, duration: 0.4, ease: "power2.out" });
+  };
+
+  const handleMagneticLeave = (i) => {
+    gsap.to(iconRefs.current[i], { x: 0, y: 0, duration: 0.6, ease: "elastic.out(1, 0.4)" });
+  };
 
   return (
     <section ref={sectionRef} className="py-40 abyssal-fog overflow-hidden border-t border-white/5 relative perspective-[1000px]">
@@ -765,8 +841,15 @@ const WhyChooseUs = () => {
           </h2>
 
           <div className="space-y-8">
-            <div className="why-item flex gap-8 p-8 rounded-[2rem] bg-white/[0.02] border border-white/5 hover:bg-white/[0.04] hover:border-accent/20 transition-all group backdrop-blur-md">
-              <div className="shrink-0 w-16 h-16 rounded-2xl bg-gradient-to-br from-accent/10 to-transparent border border-accent/20 flex items-center justify-center group-hover:-rotate-12 transition-transform shadow-[0_0_20px_rgba(0,245,255,0.1)]">
+            <div 
+              className="why-item flex gap-8 p-8 rounded-[2rem] bg-white/[0.02] border border-white/5 hover:bg-white/[0.04] hover:border-accent/20 transition-all group backdrop-blur-md"
+              onMouseMove={(e) => handleMagneticMove(e, 0)}
+              onMouseLeave={() => handleMagneticLeave(0)}
+            >
+              <div 
+                ref={el => iconRefs.current[0] = el}
+                className="shrink-0 w-16 h-16 rounded-2xl bg-gradient-to-br from-accent/10 to-transparent border border-accent/20 flex items-center justify-center group-hover:-rotate-12 transition-transform shadow-[0_0_20px_rgba(0,245,255,0.1)]"
+              >
                 <Globe className="text-accent" size={28} />
               </div>
               <div>
@@ -775,8 +858,15 @@ const WhyChooseUs = () => {
               </div>
             </div>
 
-            <div className="why-item flex gap-8 p-8 rounded-[2rem] bg-white/[0.02] border border-white/5 hover:bg-white/[0.04] hover:border-secondary/20 transition-all group backdrop-blur-md">
-              <div className="shrink-0 w-16 h-16 rounded-2xl bg-gradient-to-br from-secondary/10 to-transparent border border-secondary/20 flex items-center justify-center group-hover:rotate-12 transition-transform shadow-[0_0_20px_rgba(99,102,241,0.1)]">
+            <div 
+              className="why-item flex gap-8 p-8 rounded-[2rem] bg-white/[0.02] border border-white/5 hover:bg-white/[0.04] hover:border-secondary/20 transition-all group backdrop-blur-md"
+              onMouseMove={(e) => handleMagneticMove(e, 1)}
+              onMouseLeave={() => handleMagneticLeave(1)}
+            >
+              <div 
+                ref={el => iconRefs.current[1] = el}
+                className="shrink-0 w-16 h-16 rounded-2xl bg-gradient-to-br from-secondary/10 to-transparent border border-secondary/20 flex items-center justify-center group-hover:rotate-12 transition-transform shadow-[0_0_20px_rgba(99,102,241,0.1)]"
+              >
                 <Cpu className="text-secondary" size={28} />
               </div>
               <div>
@@ -789,11 +879,16 @@ const WhyChooseUs = () => {
 
         {/* Right Side Card */}
         <div className="lg:col-span-6 flex justify-center lg:justify-end">
-          <div className="why-widget neuro-glass p-12 md:p-16 rounded-[4rem] text-center w-full max-w-lg relative overflow-hidden group">
-            <div className="absolute inset-0 bg-gradient-to-br from-accent/10 via-transparent to-secondary/10 opacity-50 group-hover:opacity-100 transition-opacity duration-700"></div>
+          <div ref={widgetRef} className="why-widget neuro-glass p-12 md:p-16 rounded-[4rem] text-center w-full max-w-lg relative overflow-hidden group border border-white/5 shadow-[0_50px_100px_-20px_rgba(0,0,0,0.8)]">
+            <div className="absolute inset-0 bg-gradient-to-br from-accent/5 via-transparent to-secondary/5 opacity-50 group-hover:opacity-100 transition-opacity duration-700"></div>
+            
+            {/* Visual Scanners */}
+            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-accent/40 to-transparent animate-scan-slow"></div>
+            <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-secondary/40 to-transparent animate-scan-slow-reverse"></div>
 
             <div className="relative z-10">
-              <div className="w-32 h-32 bg-black/40 rounded-full flex items-center justify-center mx-auto mb-10 glow-pulse border border-accent/30 backdrop-blur-md">
+              <div className="w-32 h-32 bg-black/40 rounded-full flex items-center justify-center mx-auto mb-10 glow-pulse border border-accent/30 backdrop-blur-md relative">
+                <div className="absolute inset-0 rounded-full border border-accent/10 animate-ping opacity-30"></div>
                 <Server className="text-accent" size={48} strokeWidth={1.5} />
               </div>
 
