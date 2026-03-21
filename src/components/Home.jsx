@@ -841,12 +841,12 @@ const WhyChooseUs = () => {
           </h2>
 
           <div className="space-y-8">
-            <div 
+            <div
               className="why-item flex gap-8 p-8 rounded-[2rem] bg-white/[0.02] border border-white/5 hover:bg-white/[0.04] hover:border-accent/20 transition-all group backdrop-blur-md"
               onMouseMove={(e) => handleMagneticMove(e, 0)}
               onMouseLeave={() => handleMagneticLeave(0)}
             >
-              <div 
+              <div
                 ref={el => iconRefs.current[0] = el}
                 className="shrink-0 w-16 h-16 rounded-2xl bg-gradient-to-br from-accent/10 to-transparent border border-accent/20 flex items-center justify-center group-hover:-rotate-12 transition-transform shadow-[0_0_20px_rgba(0,245,255,0.1)]"
               >
@@ -858,12 +858,12 @@ const WhyChooseUs = () => {
               </div>
             </div>
 
-            <div 
+            <div
               className="why-item flex gap-8 p-8 rounded-[2rem] bg-white/[0.02] border border-white/5 hover:bg-white/[0.04] hover:border-secondary/20 transition-all group backdrop-blur-md"
               onMouseMove={(e) => handleMagneticMove(e, 1)}
               onMouseLeave={() => handleMagneticLeave(1)}
             >
-              <div 
+              <div
                 ref={el => iconRefs.current[1] = el}
                 className="shrink-0 w-16 h-16 rounded-2xl bg-gradient-to-br from-secondary/10 to-transparent border border-secondary/20 flex items-center justify-center group-hover:rotate-12 transition-transform shadow-[0_0_20px_rgba(99,102,241,0.1)]"
               >
@@ -881,7 +881,7 @@ const WhyChooseUs = () => {
         <div className="lg:col-span-6 flex justify-center lg:justify-end">
           <div ref={widgetRef} className="why-widget neuro-glass p-12 md:p-16 rounded-[4rem] text-center w-full max-w-lg relative overflow-hidden group border border-white/5 shadow-[0_50px_100px_-20px_rgba(0,0,0,0.8)]">
             <div className="absolute inset-0 bg-gradient-to-br from-accent/5 via-transparent to-secondary/5 opacity-50 group-hover:opacity-100 transition-opacity duration-700"></div>
-            
+
             {/* Visual Scanners */}
             <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-accent/40 to-transparent animate-scan-slow"></div>
             <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-secondary/40 to-transparent animate-scan-slow-reverse"></div>
